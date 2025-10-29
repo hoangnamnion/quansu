@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kỷ niệm của tôi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="site-header">
+<h1>Album kỷ niệm</h1>
+<p class="subtitle">Những khoảnh khắc đáng nhớ</p>
+</header>
+
+<main class="container">
+<nav id="filters" class="filters" aria-label="Bộ lọc mục ảnh"></nav>
+<div id="gallery" class="gallery" aria-live="polite"></div>
+<div style="text-align:center;margin-top:16px">
+<button id="loadMore" class="load-more" type="button" aria-label="Tải thêm mục" hidden>Xem thêm</button>
+</div>
+</main>
+
+<div id="lightbox" class="lightbox" aria-hidden="true" role="dialog" aria-label="Xem ảnh lớn">
+<button id="lightboxClose" class="lightbox__close" aria-label="Đóng">×</button>
+<img id="lightboxImg" class="lightbox__img" alt="">
+<video id="lightboxVideo" class="lightbox__video" controls playsinline></video>
+<iframe id="lightboxFrame" class="lightbox__frame" title="YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<div id="lightboxCaption" class="lightbox__caption"></div>
+</div>
+
+<footer class="site-footer">
+<small>Cập nhật ảnh trong file <code>photos.js</code></small>
+</footer>
+
+<button id="musicToggle" class="music-btn" aria-pressed="false" aria-label="Mở nhạc">♫</button>
+<audio id="bgm" src="music.mp3" preload="none"></audio>
+<button id="musicShow" class="music-show" aria-label="Hiện nút nhạc" style="display:none">♫</button>
+
+<script src="photos.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
