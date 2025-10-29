@@ -13,14 +13,9 @@ const CATEGORIES = {
 @img/2039.jpg,
 @img/20310.jpg,
 @img/20311.jpg,
-@img/20312.jpg,
 @img/20313.jpg,
 @img/20314.jpg,
-@img/20315.jpg,
-@img/20316.jpg,
-@img/20317.jpg,
-@img/20318.jpg,
-@img/20319.jpg,
+
 
 `,
 "Tiểu Đội 204": `
@@ -58,7 +53,6 @@ const CATEGORIES = {
 @img/20433.jpg,
 @img/20434.jpg,
 @img/20435.jpg,
-@img/20436.jpg,
 @img/20437.jpg,
 @img/20438.jpg,
 @img/20439.jpg,
@@ -76,16 +70,17 @@ const CATEGORIES = {
 @img/20451.jpg,
 @img/20452.jpg,
 @img/20453.jpg,
-@img/20454.jpg,
-@img/20455.jpg,
-@img/20456.jpg,
-@img/20457.jpg,
- @https://youtube.com/shorts/7E7W477xntc?feature=share
+@img/20454.jpg, @img/20455.jpg, @img/20456.jpg, @img/20457.jpg, @img/20458.jpg ,@img/20459.jpg
+
+
+
+
 `,
 "Tiểu Đội 301": `
  @https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=1600&auto=format&fit=crop
 `,
 "Tiểu Đội 302": `
+
  @img/3021.jpg,
  @img/3022.jpg,
  @img/3023.jpg,
@@ -102,12 +97,20 @@ const CATEGORIES = {
  @img/30214.jpg,
  @img/30215.jpg,
  @img/30216.jpg,
+ @img/30217.jpg,
+ @img/30218.jpg,
+ @img/30220.jpg,
 `,
 "Tiểu Đội 303": `
  
 `,
 "Tiểu Đội 304": `
  
+`,
+"Videos": `
+  @https://youtu.be/mB-pwGVNjsQ,
+ @https://youtu.be/rrn29dBtSew,
+  @https://youtube.com/shorts/7E7W477xntc?feature=share,
 `
 };
 
