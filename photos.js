@@ -15,6 +15,18 @@ const CATEGORIES = {
 @img/20311.jpg,
 @img/20313.jpg,
 @img/20314.jpg,
+@img2/2031.jpg,
+@img2/2032.jpg,
+@img2/2033.jpg,
+@img2/2034.jpg,
+@img2/2035.jpg,
+@img2/2036.jpg,
+@img2/2037.jpg,
+@img2/2038.jpg,
+@img2/2039.jpg,
+@img2/20310.jpg,
+@img2/20311.jpg,
+
 
 
 `,
@@ -70,14 +82,44 @@ const CATEGORIES = {
 @img/20451.jpg,
 @img/20452.jpg,
 @img/20453.jpg,
-@img/20454.jpg, @img/20455.jpg, @img/20456.jpg, @img/20457.jpg, @img/20458.jpg ,@img/20459.jpg
+@img/20454.jpg, @img/20455.jpg, @img/20456.jpg, @img/20457.jpg, @img/20458.jpg ,@img/20459.jpg,
+@img2/2041.jpg,
+@img2/2042.jpg,
+@img2/2043.jpg,
+@img2/2044.jpg,
+@img2/2045.jpg,
+@img2/2046.jpg,
+@img2/2047.jpg,
+@img2/2048.jpg,
+@img2/2049.jpg,
+@img2/20410.jpg,
+@img2/20411.jpg,
+@img2/20412.jpg,
+@img2/20413.jpg,
+@img2/20414.jpg,
+@img2/20415.jpg,
+@img2/20416.jpg,
+@img2/20417.jpg,
+@img2/20418.jpg,
+@img2/20419.jpg,
+@img2/20420.jpg,
+@img2/20421.jpg,
+@img2/20422.jpg,
+@img2/20423.jpg,
+@img2/20424.jpg,
+@img2/20425.jpg,
+@img2/20426.jpg,
+@img2/20427.jpg,
+@img2/20428.jpg,
+@img2/20429.jpg,
+
 
 
 
 
 `,
 "Tiểu Đội 301": `
- @https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=1600&auto=format&fit=crop
+ @img2/301.jpg,
 `,
 "Tiểu Đội 302": `
 
@@ -100,17 +142,45 @@ const CATEGORIES = {
  @img/30217.jpg,
  @img/30218.jpg,
  @img/30220.jpg,
+
 `,
 "Tiểu Đội 303": `
- 
+ @img2/303.jpg,
+ @img2/3031.jpg,
+ @img2/3032.jpg,
+ @img2/3033.jpg,
+
 `,
 "Tiểu Đội 304": `
- 
+ @img2/304.jpg,
+
 `,
 "Videos": `
-  @https://youtu.be/mB-pwGVNjsQ,
- @https://youtu.be/rrn29dBtSew,
-  @https://youtube.com/shorts/7E7W477xntc?feature=share,
+
+  @img/2041.mp4,
+  @img/2042.mp4,
+  @img/2043.mp4,
+  @img/3021.mp4,
+  @img/3022.mp4,
+  @img/3023.mp4,
+  @img2/204.mp4,
+  @img2/2041.mp4,
+  @img2/2042.mp4,
+  @img2/2043.mp4,
+  @img2/2044.mp4,
+  @img2/2045.mp4,
+  @img2/2046.mp4,
+  @img2/2047.mp4,
+  @img2/2049.mp4,
+  @img2/20410.mp4,
+  @img2/20411.mp4,
+  @img2/301.mp4,
+  @img2/302.mp4,
+  @img2/303.mp4,
+  @img2/304.mp4,
+  
+
+
 `
 };
 
