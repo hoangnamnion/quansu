@@ -5,9 +5,12 @@
   const lightboxCaption = document.getElementById("lightboxCaption");
   const lightboxClose = document.getElementById("lightboxClose");
   const filtersEl = document.getElementById("filters");
+  const searchInput = document.getElementById("search");
   const musicBtn = document.getElementById("musicToggle");
   const bgm = document.getElementById("bgm");
   const musicShow = document.getElementById("musicShow");
+  const themeToggle = document.getElementById("themeToggle");
+  const fallingCanvas = document.getElementById("fallingDecor");
 
   function isVideoUrl(url){
     return /\.(mp4|webm|ogg)(\?|#|$)/i.test(url);
@@ -69,11 +72,24 @@
     return [];
   }
 
-  function createCard(photo){
+  function inferTitleFromUrl(url){
+    try{
+      var u = url;
+      // Remove query/hash
+      u = u.split("?")[0].split("#")[0];
+      var parts = u.split("/");
+      var last = parts[parts.length-1] || "";
+      var name = last.replace(/\.[a-z0-9]+$/i, "");
+      return name;
+    } catch(e){ return ""; }
+  }
+
+  function createCard(photo, index){
     const card = document.createElement("button");
     card.className = "card";
     card.type = "button";
-    card.setAttribute("aria-label", photo.title || "Xem ảnh");
+    var displayTitle = photo.title || inferTitleFromUrl(photo.url);
+    card.setAttribute("aria-label", displayTitle ? ("Xem: " + displayTitle) : "Xem ảnh");
 
     var mediaEl;
     if(photo.type === "video"){
@@ -91,7 +107,7 @@
       mediaEl.loading = "lazy";
       var thumb = photo.youtubeId ? ("https://img.youtube.com/vi/"+photo.youtubeId+"/hqdefault.jpg") : photo.url;
       mediaEl.src = thumb;
-      mediaEl.alt = photo.title || "YouTube";
+      mediaEl.alt = displayTitle || "YouTube";
       const playTag = document.createElement("div");
       playTag.className = "card__play";
       playTag.textContent = "▶ YouTube";
@@ -101,25 +117,22 @@
       mediaEl = document.createElement("img");
       mediaEl.loading = "lazy";
       mediaEl.src = photo.url;
-      mediaEl.alt = photo.title || "Kỷ niệm";
+      mediaEl.alt = displayTitle || "Kỷ niệm";
       card.appendChild(mediaEl);
     }
 
     const caption = document.createElement("div");
     caption.className = "card__caption";
     const titleSpan = document.createElement("span");
-    titleSpan.textContent = photo.title || "";
-    const yearSpan = document.createElement("span");
-    yearSpan.className = "badge";
-    yearSpan.textContent = photo.year ? String(photo.year) : "";
+    titleSpan.textContent = displayTitle || "";
     caption.appendChild(titleSpan);
-    if(photo.year){ caption.appendChild(yearSpan); }
+    // year badge removed
 
     // mediaEl was already appended above
     card.appendChild(caption);
 
     card.addEventListener("click", function(){
-      openLightbox(photo);
+      openLightboxByIndex(typeof index === "number" ? index : currentData.indexOf(photo));
     });
 
     return card;
@@ -127,6 +140,9 @@
 
   const lightboxVideo = document.getElementById("lightboxVideo");
   const lightboxFrame = document.getElementById("lightboxFrame");
+  const lightboxPrev = document.getElementById("lightboxPrev");
+  const lightboxNext = document.getElementById("lightboxNext");
+  var currentIndex = -1;
 
   function openLightbox(photo){
     if(photo.type === "video"){
@@ -153,10 +169,18 @@
       if(lightboxFrame){ lightboxFrame.removeAttribute("src"); lightboxFrame.style.display = "none"; }
       lightboxImg.style.display = "block";
     }
-    lightboxCaption.textContent = photo.title || "";
+    // Hide caption content in lightbox (no title/number shown)
+    lightboxCaption.textContent = "";
+    // hide badge if any
     lightboxEl.classList.add("show");
     lightboxEl.setAttribute("aria-hidden", "false");
     document.body.style.overflow = "hidden";
+  }
+
+  function openLightboxByIndex(index){
+    if(!currentData || currentData.length === 0) return;
+    currentIndex = (index + currentData.length) % currentData.length;
+    openLightbox(currentData[currentIndex]);
   }
 
   function closeLightbox(){
@@ -175,8 +199,15 @@
   document.addEventListener("keydown", function(e){
     if(e.key === "Escape" && lightboxEl.classList.contains("show")){
       closeLightbox();
+    } else if((e.key === "ArrowRight" || e.key === "d") && lightboxEl.classList.contains("show")){
+      openLightboxByIndex(currentIndex + 1);
+    } else if((e.key === "ArrowLeft" || e.key === "a") && lightboxEl.classList.contains("show")){
+      openLightboxByIndex(currentIndex - 1);
     }
   });
+
+  if(lightboxPrev){ lightboxPrev.addEventListener("click", function(){ openLightboxByIndex(currentIndex - 1); }); }
+  if(lightboxNext){ lightboxNext.addEventListener("click", function(){ openLightboxByIndex(currentIndex + 1); }); }
 
   function getCategories(){
     // Ưu tiên CATEGORIES. Nếu không có, rơi về PHOTOS (mặc định "Tất cả").
@@ -227,6 +258,7 @@
 
   var currentCategory = "TatCa";
   var currentData = [];
+  var searchTerm = "";
   var pageSize = 24;
   var pageIndex = 0;
   const loadMoreBtn = document.getElementById("loadMore");
@@ -242,7 +274,7 @@
     var start = pageIndex * pageSize;
     var end = Math.min(start + pageSize, currentData.length);
     for(var i=start;i<end;i++){
-      const card = createCard(currentData[i]);
+      const card = createCard(currentData[i], i);
       galleryEl.appendChild(card);
     }
     updateLoadMoreVisibility();
@@ -272,6 +304,22 @@
       data = selected; // đã là mảng chuẩn hoá khi tạo ở trên
     } else {
       data = normalizePhotos(selected);
+    }
+    // Derive title if missing
+    data = data.map(function(it){
+      if(!it) return it;
+      if(!it.title && it.url){ it.title = inferTitleFromUrl(it.url); }
+      return it;
+    });
+    // Apply search filter
+    var q = searchTerm.trim().toLowerCase();
+    if(q){
+      data = data.filter(function(it){
+        var t = (it.title || "").toLowerCase();
+        var u = (it.url || "").toLowerCase();
+        var y = (it.year ? String(it.year) : "").toLowerCase();
+        return t.indexOf(q) !== -1 || u.indexOf(q) !== -1 || y.indexOf(q) !== -1;
+      });
     }
     currentData = data;
   }
@@ -345,5 +393,107 @@
   } else {
     resetAndRender();
   }
+
+  // Search events
+  if(searchInput){
+    var handleSearch = function(){
+      searchTerm = searchInput.value || "";
+      resetAndRender();
+    };
+    searchInput.addEventListener("input", handleSearch);
+  }
+
+  // Theme toggle
+  function setTheme(isDark){
+    var pressed = !!isDark;
+    document.body.classList.toggle("theme-dark", pressed);
+    if(themeToggle){
+      themeToggle.setAttribute("aria-pressed", pressed ? "true" : "false");
+      themeToggle.textContent = pressed ? "☀" : "🌙";
+    }
+  }
+  var savedTheme = null;
+  try{ savedTheme = localStorage.getItem("theme"); }catch(e){}
+  if(savedTheme === "dark"){ setTheme(true); }
+  if(themeToggle){
+    themeToggle.addEventListener("click", function(){
+      var nowDark = !document.body.classList.contains("theme-dark");
+      setTheme(nowDark);
+      try{ localStorage.setItem("theme", nowDark ? "dark" : "light"); }catch(e){}
+    });
+  }
+
+  // Falling decor animation (heart-shaped VN flag)
+  (function(){
+    if(!fallingCanvas) return;
+    var ctx = fallingCanvas.getContext("2d");
+    var dpr = Math.max(1, window.devicePixelRatio || 1);
+    var width = 0, height = 0;
+    function resize(){
+      width = Math.max(1, window.innerWidth);
+      height = Math.max(1, window.innerHeight);
+      fallingCanvas.width = Math.floor(width * dpr);
+      fallingCanvas.height = Math.floor(height * dpr);
+      ctx.setTransform(dpr,0,0,dpr,0,0);
+    }
+    resize();
+    window.addEventListener("resize", resize);
+
+    var img = new Image();
+    img.src = "img2/laco.png";
+    var particles = [];
+    function spawnParticle(){
+      var baseSize = 22 + Math.random()*26; // 22-48 px
+      particles.push({
+        x: Math.random() * width,
+        y: -60 - Math.random()*200,
+        size: baseSize,
+        vx: (-0.3 + Math.random()*0.6),
+        vy: 0.8 + Math.random()*1.6,
+        rot: Math.random()*Math.PI*2,
+        spin: (-0.02 + Math.random()*0.04),
+        opacity: 0.8 + Math.random()*0.2
+      });
+    }
+    function targetCount(){
+      var area = Math.max(1, width * height);
+      // roughly 35 on laptop, scale with area
+      return Math.min(80, Math.max(12, Math.floor(area / 45000)));
+    }
+
+    var rafId = 0;
+    function tick(){
+      ctx.clearRect(0,0,width,height);
+      // ensure enough particles
+      for(var i=particles.length;i<targetCount();i++){ spawnParticle(); }
+      // update/draw
+      for(var j=particles.length-1;j>=0;j--){
+        var p = particles[j];
+        p.x += p.vx;
+        p.y += p.vy;
+        p.rot += p.spin;
+        if(p.y - p.size > height + 40){
+          particles.splice(j,1);
+          continue;
+        }
+        if(!img.complete) continue;
+        ctx.save();
+        ctx.globalAlpha = p.opacity;
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rot);
+        ctx.drawImage(img, -p.size/2, -p.size/2, p.size, p.size);
+        ctx.restore();
+      }
+      rafId = requestAnimationFrame(tick);
+    }
+
+    // Pause when tab hidden
+    function handleVis(){
+      if(document.hidden){ cancelAnimationFrame(rafId); }
+      else { rafId = requestAnimationFrame(tick); }
+    }
+    document.addEventListener("visibilitychange", handleVis);
+    rafId = requestAnimationFrame(tick);
+  })();
 })();
 
