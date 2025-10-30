@@ -1,54 +1,87 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Kỷ niệm của tôi</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thông báo đổi miền</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Poppins", "Segoe UI", sans-serif;
+      background-color: #ffffff;
+      color: #333;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      text-align: center;
+      background: #fff;
+      padding: 50px 40px;
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      max-width: 420px;
+      animation: fadeIn 1s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+      color: #111;
+    }
+
+    p {
+      font-size: 1rem;
+      margin-bottom: 30px;
+      color: #555;
+    }
+
+    a {
+      display: inline-block;
+      background: linear-gradient(90deg, #FFD700, #FFC300);
+      color: #000;
+      text-decoration: none;
+      padding: 12px 28px;
+      border-radius: 50px;
+      font-weight: 600;
+      box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    a:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(255, 193, 7, 0.4);
+    }
+
+    .logo {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 15px;
+      border-radius: 20px;
+    }
+
+    footer {
+      margin-top: 25px;
+      font-size: 0.85rem;
+      color: #aaa;
+    }
+  </style>
 </head>
 <body>
-<header class="site-header">
-<h1>Album kỷ niệm</h1>
-<p class="subtitle">Những khoảnh khắc đáng nhớ</p>
-</header>
-
-<main class="container">
-<div class="toolbar" role="search">
-<label for="search" class="sr-only">Tìm kiếm</label>
-<input id="search" class="search" type="search" placeholder="Tìm ảnh, tiêu đề, năm..." autocomplete="off" aria-label="Tìm kiếm ảnh">
-<button id="themeToggle" class="theme-btn" aria-pressed="false" aria-label="Đổi giao diện sáng/tối">🌙</button>
-</div>
-<nav id="filters" class="filters" aria-label="Bộ lọc mục ảnh"></nav>
-<div id="gallery" class="gallery" aria-live="polite"></div>
-<div style="text-align:center;margin-top:16px">
-<button id="loadMore" class="load-more" type="button" aria-label="Tải thêm mục" hidden>Xem thêm</button>
-</div>
-</main>
-
-<div id="lightbox" class="lightbox" aria-hidden="true" role="dialog" aria-label="Xem ảnh lớn">
-<button id="lightboxClose" class="lightbox__close" aria-label="Đóng">×</button>
-<button id="lightboxPrev" class="lightbox__nav lightbox__prev" aria-label="Ảnh trước">‹</button>
-<button id="lightboxNext" class="lightbox__nav lightbox__next" aria-label="Ảnh sau">›</button>
-<img id="lightboxImg" class="lightbox__img" alt="">
-<video id="lightboxVideo" class="lightbox__video" controls playsinline></video>
-<iframe id="lightboxFrame" class="lightbox__frame" title="YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-<div id="lightboxCaption" class="lightbox__caption"></div>
-</div>
-
-<footer class="site-footer">
-<small>Cập nhật ảnh trong file <code>photos.js</code></small>
-</footer>
-
-<button id="musicToggle" class="music-btn" aria-pressed="false" aria-label="Mở nhạc">♫</button>
-<audio id="bgm" src="music.mp3" preload="none"></audio>
-<button id="musicShow" class="music-show" aria-label="Hiện nút nhạc" style="display:none">♫</button>
-
-<canvas id="fallingDecor" class="falling-decor" aria-hidden="true"></canvas>
-
-<script src="photos.js"></script>
-<script src="app.js"></script>
+  <div class="container">
+    <img src="https://cdn-icons-png.flaticon.com/512/992/992700.png" alt="Website Icon" class="logo">
+    <h1>Trang web đã đổi miền!</h1>
+    <p>Vui lòng ấn vào nút bên dưới để đến địa chỉ mới.</p>
+    <a href="https://75dckn24.vercel.app">👉 Ấn vào đây để chuyển trang</a>
+    <footer>© 2025 Cao Văn Nam</footer>
+  </div>
 </body>
 </html>
